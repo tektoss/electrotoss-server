@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 const PORT = process.env.port || 3003;
 const cors = require("cors");
-// This is your test secret API key.
-const stripe = require("stripe")('sk_test_51NL0smEToS1NHjVdB8fqFPGQe82g7z4ST5AJgrfFeCQoLKIzL1lVJociwkWaWcNDy4aE9PwAaFMjJY8oIdppeKfO00eBOQb2PN');
+// This is your secret API key.
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -32,6 +33,10 @@ app.post("/create-payment-intent", async (req, res) => {
     clientSecret: paymentIntent.client_secret,
   });
 });
+
+app.get("/test", (req, res) => {
+  res.send(`server is live on port ${PORT}`);
+})
 
 app.listen(PORT, ()=>{ 
     console.log(`listening to port ${PORT}!!`); 
