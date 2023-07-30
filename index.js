@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require('dotenv').config();
-const PORT = process.env.port || 3003;
+const PORT = process.env.PORT || 3003;
 const cors = require("cors");
 // This is your secret API key.
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
